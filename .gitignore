@@ -2,4 +2,5 @@
 /ConsoleApp/bin
 /ConsoleApp/obj
 /.vs
-
+/MyUnitTest/bin
+/MyUnitTest/obj
