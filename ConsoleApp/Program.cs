@@ -1,4 +1,4 @@
-﻿using System;
+﻿using ConsoleApp.Utils;
 
 namespace ConsoleApp
 {
@@ -6,7 +6,7 @@ namespace ConsoleApp
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            HLog.print("Hello World!");
         }
     }
 }
