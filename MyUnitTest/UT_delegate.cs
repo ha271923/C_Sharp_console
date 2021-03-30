@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace MyUnitTest
 {
     [TestClass]
-    public class UnitTest_startCoroutine
+    public class UT_delegate
     {
         [TestMethod]
         public void TestMethod1()
