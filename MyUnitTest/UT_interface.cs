@@ -46,7 +46,7 @@ namespace MyUnitTest
             HLog.print(op(1, 2));   // Func 4. 使用Func函數
             opD = Func_Add;             // Func 3.指定
             double ret = opD(1.0, 2.0); // Func 4. 使用Func函數
-            HLog.print("double ret="+ret);   
+            HLog.print("double ret="+ret);
             /*
             // lambda
             Func<int, int, int> op = (a, b) => a + b; // Func 1.宣告+2.實作+3.指定
@@ -81,6 +81,6 @@ namespace MyUnitTest
     public delegate double OperationD(double a, double b); // delegate 1. 宣告
 
     // Func -----------------------------------------------------
-    public delegate T FuncOperation<T>(T a, T b); // delegate 1. 宣告
+    // public delegate T FuncOperation<T>(T a, T b); // delegate 1. 宣告
 
 }
