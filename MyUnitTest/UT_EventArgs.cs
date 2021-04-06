@@ -102,5 +102,39 @@ namespace MyUnitTest
         {
             Console.WriteLine($"{_id} received this message: {e.Message}");
         }
+
+        // --------------------------------------------------------
+        public class 新聞 : EventArgs { // 將參數集合起來包裝成一個類別來傳遞。這樣以後要傳遞的參數需要修改或是數量增減也比較方便調整。
+            public string 標題;
+            public string 內容;
+        }
+
+        class 報社 {
+            public string 名稱;
+            public delegate void 通知對象(報社 有間報社, string 新聞報導);
+            public event EventHandler 最新新聞;
+
+            public void 投稿新聞(string 訊息) {
+                新聞 new新聞 = new 新聞() { 標題 = "最新快訊", 內容 = 訊息 };
+                On收到最新新聞時(this, new新聞);
+            }
+
+            protected void On收到最新新聞時(報社 報社, 新聞 新聞) {
+                最新新聞?.Invoke(報社, 新聞);
+            }
+        }
+
+
+        class 訂閱者 {
+            public string 名字;
+            public void 通知我(object sender, EventArgs eventArgs) {
+                報社 報社 = sender as 報社;  // KEY: object to everything
+                新聞 新聞 = eventArgs as 新聞; // KEY: EventArgs to everything
+                Console.WriteLine($"我是{名字}，我已經收到來自{報社.名稱}的{新聞.標題}：{新聞.內容}");
+            }
+        }
+
+        
+
     }
 }

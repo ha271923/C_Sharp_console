@@ -294,6 +294,7 @@ namespace MyUnitTest
             string 消息2 = "勇者準備出發";
             王國日報.投稿新聞(消息2);
 
+            王國日報.最新新聞.Invoke("假新聞"); // Q: 如何避免被發送假新聞?? A: event keyword
         }
     }
 }
