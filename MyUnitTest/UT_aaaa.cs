@@ -6,7 +6,7 @@ namespace MyUnitTest
     [TestClass]
     public class UT_aaaa
     {
-        [TestMethod]
+        [TestMethod] // -----------------------------------------------------------------------
         public void TestMethod1()
         {
             // show this msg at Right-Click\Run Tests\
