@@ -260,6 +260,40 @@ namespace MyUnitTest
             return obj.X * obj.Y > 100000;
         }
 
+        // ------------------------------------------------------------------------
+        class 訂閱者 { // Subscriber
+            public string 名字;
+            public void 通知我(string 訊息) {
+                HLog.print($"我是 {名字} ，我已經收到最新新聞： {訊息}");
+            }
+        }
+        public delegate void 通知對象(string 通知內容);
 
+        class 報社 { // Publisher
+            public delegate void 通知對象(string 新聞報導);
+            public 通知對象 最新新聞;
+            public void 投稿新聞(string 新聞稿) {
+                最新新聞.Invoke(新聞稿); //觸發事件
+            }
+        }
+
+        [TestMethod] // -----------------------------------------------------------------------
+        public void TestMethod15() {
+            訂閱者 農夫 = new 訂閱者() { 名字 = "農夫" };
+            訂閱者 商人 = new 訂閱者() { 名字 = "商人" };
+            訂閱者 騎士 = new 訂閱者() { 名字 = "騎士" };
+
+            報社 王國日報 = new 報社();
+            //訂閱
+            王國日報.最新新聞 += 農夫.通知我;
+            王國日報.最新新聞 += 商人.通知我;
+            王國日報.最新新聞 += 騎士.通知我;
+
+            string 消息1 = "魔王降臨啦!!!";
+            王國日報.投稿新聞(消息1);
+            string 消息2 = "勇者準備出發";
+            王國日報.投稿新聞(消息2);
+
+        }
     }
 }
