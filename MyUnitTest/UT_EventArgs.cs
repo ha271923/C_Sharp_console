@@ -70,8 +70,11 @@ namespace MyUnitTest
                 // Format the string to send inside the CustomEventArgs parameter
                 e.Message += $" at {DateTime.Now}";
 
-                // Call to raise the event.
+                // A. Call to raise the event.
                 raiseEventHandler(this, e);
+
+                // B. Raise the event in a thread-safe manner using the ?. operator and Invoke
+                // raiseEventHandler?.Invoke(this, e);
             }
         }
     }
