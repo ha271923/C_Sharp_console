@@ -97,6 +97,8 @@ namespace MyUnitTest
             // Price = | NT$100.00 |
         }
 
+        // @，逐字識別碼字元。
+        // $，插補的字串字元。
         [TestMethod] // -----------------------------------------------------------------------
         public void TestMethod4()  // 字串插補$在建立格式化字串時，是比{0}功能更容易理解且方便的語法。
         {
@@ -109,6 +111,43 @@ namespace MyUnitTest
             HLog.print($"Hello, {name}! Today is {date.DayOfWeek}, it's {date:HH:mm} now.");
             // out:
             // Hello, Mark! Today is Wednesday, it's 19:40 now.
+        }
+
+        // @，逐字識別碼字元。
+        // $，插補的字串字元。
+        [TestMethod] // -----------------------------------------------------------------------
+        public void TestMethod5()  // 字串插補$在建立格式化字串時，是比{0}功能更容易理解且方便的語法。
+        {
+            // @ 字元將程式碼元素當成前置詞，編譯器要將此元素解譯為識別項，不是 C# 關鍵字。 
+            // 下例會使用 @ 字元來定義名為專給 for 的識別項，它會用在 for 迴圈中。
+            string[] @for = { "John", "James", "Joan", "Jamie" };
+            for (int ctr = 0; ctr < @for.Length; ctr++)
+            {
+                HLog.print($"Here is your gift, {@for[ctr]}!");
+            }
+            // The example displays the following output:
+            //     Here is your gift, John!
+            //     Here is your gift, James!
+            //     Here is your gift, Joan!
+            //     Here is your gift, Jamie!
+
+            string filename1 = @"c:\documents\files\u0066.txt";
+            string filename2 = "c:\\documents\\files\\u0066.txt";
+            HLog.print(filename1);
+            HLog.print(filename2);
+            // The example displays the following output:
+            //     c:\documents\files\u0066.txt
+            //     c:\documents\files\u0066.txt
+
+            string s1 = "He said, \"This is the last \u0063hance\x0021\"";
+            string s2 = @"He said, ""This is the last \u0063hance\x0021""";
+            HLog.print(s1);
+            HLog.print(s2);
+            // The example displays the following output:
+            //     He said, "This is the last chance!"
+            //     He said, "This is the last \u0063hance\x0021"   // c=0x0063 , !=0x0021
+
+
         }
     }
 }
