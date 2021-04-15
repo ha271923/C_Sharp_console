@@ -19,21 +19,39 @@ namespace MyUnitTest
             int test = 10;
             int a = test > 0 ? 5 : -1;
             // if(test>0) a=5; else a=-1;
-            HLog.print("a="+a);
+            /*
+            if (test > 0)
+                a = 5;
+            else
+                a = -1;
+            */
+            HLog.print("a="+a);  // out: a=5
 
             // value ?? expression
             // example:
             int? NullableValue = null;
             int b = NullableValue ?? -1;
             // if(NullableValue==null) b=-1; else b=NullableValue.Value;
-            HLog.print("b=" + b);
+            /*
+            if (NullableValue is null)
+                b = -1;
+            else
+                b = NullableValue.Value;
+            */
+            HLog.print("b=" + b);  // out: b=-1
 
             // value ?.expression
             // example:
             int[] NullableArrayValue = null;
             int? c = NullableArrayValue?.Length;
             // if(NullableValue==null) c=null; else c=NullableValue.Value;
-            HLog.print("c=" + c);
+            /*
+            if (NullableArrayValue is null)
+                c = null;
+            else
+                c = NullableArrayValue.Length;
+            */
+            HLog.print("c=" + c); // out:  c=
 
         }
     }
