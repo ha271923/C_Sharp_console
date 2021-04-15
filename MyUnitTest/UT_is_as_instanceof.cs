@@ -13,16 +13,90 @@ namespace MyUnitTest
         B: 常數模式，測試運算式是否評估為指定的常數值。
         C: var 模式，比對一定會成功，而且會將運算式的值繫結至新的區域變數。
      */
+
+    public interface IExample { }
+    public class BaseClass : IExample { }
+    public class DerivedClass : BaseClass { }
+
     [TestClass]
-    public class UT_is_as
+    public class UT_is_as_instanceof
     {
+        [TestMethod] // -----------------------------------------------------------------------
+        public void TestMethod0_instanceof()
+        {
+            int[] arr = new int[11];
+
+            var base1 = new BaseClass();
+            var derived1 = new DerivedClass();
+
+            var base1Type = base1.GetType();
+            var derived1Type = derived1.GetType();
+
+            var interfaceType = typeof(IExample);
+
+            HLog.print("------------------- var ---------------------");
+            HLog.print("Is int[] an instance of the Array class? {0}.",
+                        typeof(Array).IsInstanceOfType(arr));
+
+            HLog.print("Is derived1 an instance of BaseClass? {0}.",
+                        base1.GetType().IsInstanceOfType(derived1));
+
+            HLog.print("Is base1 an instance of IExample? {0}.",
+                        interfaceType.IsInstanceOfType(base1));
+            HLog.print("Is derived1 an instance of IExample? {0}.",
+                        interfaceType.IsInstanceOfType(derived1));
+
+
+            HLog.print("------------------- Object ---------------------");
+            Object baseObj1 = new BaseClass();
+            Object derivedObj1 = new DerivedClass();
+
+            HLog.print("Object: Is derived1 an instance of BaseClass? {0}.",
+                        baseObj1.GetType().IsInstanceOfType(derivedObj1));
+
+            HLog.print("Object: Is base1 an instance of IExample? {0}.",
+                        interfaceType.IsInstanceOfType(baseObj1));
+            HLog.print("Object: Is derived1 an instance of IExample? {0}.",
+                        interfaceType.IsInstanceOfType(derivedObj1));
+
+        }
+
+
+        [TestMethod] // -----------------------------------------------------------------------
+        public void TestMethod1_is_instanceof()
+        {
+            Object baseObj = new Animal();
+
+            var obj = new Human("Hawk");
+            bool isAnimal, isHuman;
+
+            // A. is
+            isAnimal = obj is Animal;
+            isHuman = obj is Human;
+            HLog.print("is                 isAnimal=" + isAnimal + "    isHuman=" + isHuman);
+
+            // B. IsAssignableFrom()
+            isAnimal = obj.GetType().IsAssignableFrom(typeof(Animal));
+            isHuman = obj.GetType().IsAssignableFrom(typeof(Human));
+            HLog.print("IsAssignableFrom() isAnimal=" + isAnimal + "    isHuman="+isHuman);
+
+            // C. IsInstanceOfType()
+            isAnimal = baseObj.GetType().IsInstanceOfType(obj);
+            HLog.print("IsInstanceOfType() isAnimal=" + isAnimal);
+        }
+
         [TestMethod] // -----------------------------------------------------------------------
         public void TestMethod1_check_obj()
         {
-            Object o = new Human("Hawk");
-            ShowValue(o);
-            o = new Dog("Corgi");
-            ShowValue(o);
+            Object obj = new Human("Hawk");
+            ShowValue(obj);
+            obj = new Dog("Corgi");
+            ShowValue(obj);
+
+            if (obj is Animal)
+                HLog.print(" obj is Animal");
+            else
+                HLog.print(" obj is NOT Animal XXXXXXXXXXX");
         }
         public static void ShowValue(object o) {
             if (o is Human p)   // KEY: is Type
