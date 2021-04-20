@@ -64,6 +64,11 @@ namespace MyUnitTest
             // 如果連同{ } 與; 都省略掉並濃縮成一句話便成為λ運算式
             f = input => HLog.print("lambda5 =" + input);
             f(5);
+            // 如果不想輸入參數時,使用_
+            f = _ => HLog.print("lambda6 No param" );
+            f(6);
+
+            
         }
 
         public delegate int funcRet(int x);
