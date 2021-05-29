@@ -40,7 +40,7 @@ namespace MyUnitTest
                 HLog.print($"m is {m.Value}");
             else
                 HLog.print("m does not have a value");
-            
+
             // 從可為 null 的實值型別 轉換 為基礎類型
             int? m1 = 28;
             int i1 = m1 ?? -1;
@@ -61,7 +61,7 @@ namespace MyUnitTest
             // Output:
             // int? is nullable value type
             // int is non-nullable value type
-            
+
             int? a = 17;
             Type typeOfA = a.GetType();
             HLog.print(typeOfA.FullName);
@@ -95,5 +95,99 @@ namespace MyUnitTest
         }
 
         private bool IsNullable(Type type) { throw new NotImplementedException(); }
+
+
+        [TestMethod] // -----------------------------------------------------------------------
+        public void TestMethod2()
+        {
+            string notNull = "Hello";
+            string? nullable = default;
+            notNull = nullable!; // null 寬容
+        }
+
+        /*
+         在可為 null 的感知內容中：
+            參考型別的變數 T 必須使用非 null 來初始化，而且可能永遠不會指派可能的值 null 。
+            參考型別的變數 T? 可能會使用 null 或指派 null ，但在取消參考之前必須先進行檢查 null 。
+            m T? 當您套用 null 容許運算子時，型別的變數會被視為非 null，如下所示 m! 。
+         */
+        [TestMethod] // -----------------------------------------------------------------------
+        public void buildError_Demo()
+        {
+            // 可為 null 的參考型別 不能 當做基類或實介面使用。 
+            // 可為 null 的參考型別 不能 用在任何物件建立或型別測試運算式中。 
+            // 可為 null 的參考型別 不能 是成員存取運算式的類型。
+#if NOT_ALLOW
+            var nullEmpty = System.String?.Empty; // Not allowed
+            var maybeObject = new object?(); // Not allowed
+            try
+            {
+                if (thing is string ? nullableString) // not allowed
+                    Console.WriteLine(nullableString);
+            }
+            catch (Exception? e) // Not Allowed
+            {
+                Console.WriteLine("error");
+            }
+#endif
+        }
+
+        [TestMethod] // -----------------------------------------------------------------------
+        public void buildWarn_Demo()
+        {
+
+        }
+    }
+#if NOT_ALLOW
+    public class MyClass : System.Object? // not allowed
+    {
+
+    }
+#endif
+
+    //  編譯器會針對 null 檢查和指派套用語言規則，以通知其分析。 編譯器無法對方法或屬性的語義進行假設。 
+    public class ProductDescription
+    {
+        private string notnull;
+        private string? nullable;
+
+        public ProductDescription() // Warning! notnull not initialized.
+        {
+
+        }
+
+        public ProductDescription(string productDescription) =>
+            this.notnull = productDescription;
+
+        public void SetDescriptions(string productDescription, string? details = null)
+        {
+            notnull = productDescription;
+            nullable = details;
+        }
+
+        public string GetDescription()
+        {
+            if (nullable.Length == 0) // Warning! dereference possible null
+            {
+                return notnull;
+            }
+            else
+            {
+                return $"{notnull}\n{nullable}";
+            }
+        }
+
+        public string FullDescription()
+        {
+            if (nullable == null)
+            {
+                return notnull;
+            }
+            else if (nullable.Length > 0) // OK, detailedDescription can't be null.
+            {
+                return $"{notnull}\n{nullable}";
+            }
+            return notnull;
+        }
     }
 }
