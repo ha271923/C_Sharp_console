@@ -12,6 +12,7 @@ namespace MyUnitTest.basic
     protected internal: 內部保護訪問。只限於本項目或是子類訪問，其他不能訪問 
     sealed密封: 可以用來限制擴展性，如果密封了某個類，則其他類不能從該類繼承
      */
+    [TestClass]
     class UT_Class
     {
         [TestMethod] // -----------------------------------------------------------------------
