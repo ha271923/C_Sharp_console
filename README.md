@@ -8,3 +8,10 @@ https://dotnet.microsoft.com/en-us/download/dotnet/7.0
 ### 2. delete file  
 "c:\program files\dotnet\sdk\7.0.306\minimumMSBuildVersion  
 https://learn.microsoft.com/en-us/answers/questions/1286834/visual-studio-2019-unable-to-load-one-project-due  
+
+### 3. install by debug prompt in Console window  
+https://dotnet.microsoft.com/zh-cn/download/dotnet/3.1/runtime?cid=getdotnetcore&os=windows&arch=x64  
+
+### 4. Restart Visual Studio  
+
+### 5. Run All tests  
